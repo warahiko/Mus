@@ -7,7 +7,7 @@ permissions:
 on: pull_request
 
 env:
-  GRADLE_KTLINT_TASK: 'ktlint'
+  GRADLE_KTLINT_TASK: 'ktlintCheck'
   GRADLE_ANDROID_LINT_TASK: 'lintDebug'
   GRADLE_UNIT_TEST_TASK: 'testDebugUnitTest'
 
