@@ -1,19 +1,14 @@
-name: Check pull request
+name: Generate cache
 
-permissions:
-  contents: read
-  pull-requests: write
-
-on: pull_request
-
-env:
-  GRADLE_KTLINT_TASK: 'ktlintCheck'
-  GRADLE_ANDROID_LINT_TASK: 'lintDebug'
-  GRADLE_UNIT_TEST_TASK: 'testDebugUnitTest'
+on:
+  push:
+    branches:
+      - main
+      - develop*
 
 jobs:
-  check:
-    name: Check pull request
+  generate:
+    name: Generate cache
     runs-on: ubuntu-18.04
     steps:
       - name: Check out
@@ -32,6 +27,10 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/*.gradle.kts') }}
+
+      - name: Download dependencies
+        if: steps.gradle-cache.outputs.cache-hit != 'true' # キャッシュが無い場合だけ実行
+        run: ./gradlew androidDependencies
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -53,18 +52,7 @@ jobs:
           path: ${{ steps.gem-info.outputs.dir }}
           key: ${{ runner.os }}-gem-${{ steps.gem-info.outputs.key }}
 
-      - name: Run ktlint
-        run: ./gradlew $GRADLE_KTLINT_TASK
-      - name: Run Android Lint
-        run: ./gradlew $GRADLE_ANDROID_LINT_TASK
-      - name: Run Unit Test
-        run: ./gradlew $GRADLE_UNIT_TEST_TASK
-
-      - name: Set up and run Danger
-        if: cancelled() != true # 中断されない限り、エラーでも実行
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          JOB_STATUS: ${{ job.status }}
+      - name: Set up Danger
+        if: steps.gem-cache.outputs.cache-hit != 'true' # キャッシュが無い場合だけ実行
         run: |
           gem install ${{ steps.gem-info.outputs.packages }}
-          danger --dangerfile='.github/workflows/check-pull-request.danger' --remove-previous-comments --fail-on-errors=true
