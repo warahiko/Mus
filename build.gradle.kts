@@ -1,8 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+@Suppress("DSL_SCOPE_VIOLATION") // see: https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
-    id("com.android.application") version "7.1.3" apply false
-    id("com.android.library") version "7.1.3" apply false
-    id("org.jetbrains.kotlin.android") version "1.6.21" apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin) apply false
 }
 
 tasks.register("clean", Delete::class) {
@@ -13,7 +14,7 @@ subprojects {
     val ktlint by configurations.creating
 
     dependencies {
-        ktlint("com.pinterest:ktlint:0.45.2") {
+        ktlint(rootProject.libs.ktlint) {
             attributes {
                 attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
             }

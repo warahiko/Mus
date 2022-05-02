@@ -12,5 +12,8 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+enableFeaturePreview("VERSION_CATALOGS")
+
 rootProject.name = "Mus"
 include(":app")
