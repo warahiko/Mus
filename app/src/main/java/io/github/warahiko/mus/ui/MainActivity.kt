@@ -1,4 +1,4 @@
-package io.github.warahiko.mus
+package io.github.warahiko.mus.ui
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
