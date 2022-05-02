@@ -1,8 +1,7 @@
 package io.github.warahiko.mus
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import io.github.warahiko.mus.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
