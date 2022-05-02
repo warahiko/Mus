@@ -1,21 +1,27 @@
 package io.github.warahiko.mus
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import io.github.warahiko.mus.databinding.ActivityMainBinding
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // Example of a call to a native method
-        binding.sampleText.text = stringFromJNI()
+        setContent {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Text(
+                    text = stringFromJNI(),
+                    modifier = Modifier.align(Alignment.Center),
+                )
+            }
+        }
     }
 
     /**
