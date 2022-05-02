@@ -34,7 +34,7 @@ subprojects {
             "--android",
             "--color",
             "--reporter=plain",
-            "--reporter=checkstyle,output=$buildDir/reports/ktlint-results.xml",
+            "--reporter=checkstyle,output=$buildDir/reports/ktlint/ktlint-results.xml",
             "src/**/*.kt",
         )
         isIgnoreExitValue = true
