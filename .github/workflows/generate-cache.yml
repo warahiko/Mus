@@ -1,0 +1,58 @@
+name: Generate cache
+
+on:
+  push:
+    branches:
+      - main
+      - develop*
+
+jobs:
+  generate:
+    name: Generate cache
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Restore gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/*.gradle.kts') }}
+
+      - name: Download dependencies
+        if: steps.gradle-cache.outputs.cache-hit != 'true' # キャッシュが無い場合だけ実行
+        run: ./gradlew androidDependencies
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+
+      - name: Get gem info
+        env:
+          PACKAGES: danger:8.6.1 danger-checkstyle_format:0.1.1 danger-android_lint:0.0.10 danger-junit:1.0.1
+        id: gem-info
+        run: |
+          echo "::set-output name=dir::$(gem environment gemdir)"
+          echo "::set-output name=packages::$PACKAGES"
+          echo "::set-output name=key::$(echo $PACKAGES | tr ' ' '-')"
+
+      - name: Restore gem cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.gem-info.outputs.dir }}
+          key: ${{ runner.os }}-gem-${{ steps.gem-info.outputs.key }}
+
+      - name: Set up Danger
+        if: steps.gem-cache.outputs.cache-hit != 'true' # キャッシュが無い場合だけ実行
+        run: |
+          gem install ${{ steps.gem-info.outputs.packages }}
