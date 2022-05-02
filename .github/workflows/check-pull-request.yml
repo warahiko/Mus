@@ -7,6 +7,7 @@ permissions:
 on: pull_request
 
 env:
+  GRADLE_KTLINT_TASK: 'ktlint'
   GRADLE_ANDROID_LINT_TASK: 'lintDebug'
   GRADLE_UNIT_TEST_TASK: 'testDebugUnitTest'
 
@@ -52,6 +53,8 @@ jobs:
           path: ${{ steps.gem-info.outputs.dir }}
           key: ${{ runner.os }}-gem-${{ steps.gem-info.outputs.key }}
 
+      - name: Run ktlint
+        run: ./gradlew $GRADLE_KTLINT_TASK
       - name: Run Android Lint
         run: ./gradlew $GRADLE_ANDROID_LINT_TASK
       - name: Run Unit Test
