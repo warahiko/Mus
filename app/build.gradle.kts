@@ -61,3 +61,9 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espressoCore)
     androidTestImplementation(libs.androidx.compose.uiTestJUnit4)
 }
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.freeCompilerArgs += listOf(
+        "-Xuse-experimental=androidx.compose.material3.ExperimentalMaterial3Api",
+    )
+}
