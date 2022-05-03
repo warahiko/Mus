@@ -64,6 +64,6 @@ dependencies {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.freeCompilerArgs += listOf(
-        "-Xuse-experimental=androidx.compose.material3.ExperimentalMaterial3Api",
+        "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
     )
 }
