@@ -42,7 +42,11 @@ android {
         }
     }
     buildFeatures {
+        compose = true
         viewBinding = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.get()
     }
 }
 
@@ -51,7 +55,15 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
     implementation(libs.androidx.constraintLayout)
+    implementation(libs.bundles.androidx.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.testExt.junit)
     androidTestImplementation(libs.androidx.test.espressoCore)
+    androidTestImplementation(libs.androidx.compose.uiTestJUnit4)
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.freeCompilerArgs += listOf(
+        "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+    )
 }
