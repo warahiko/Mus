@@ -17,10 +17,10 @@ private val DarkColorScheme = darkColorScheme()
 @Composable
 fun MusAppTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
-    isDynamic: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S,
+    isDynamic: Boolean = true,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = if (isDynamic) {
+    val colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && isDynamic) {
         val context = LocalContext.current
         if (isDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
     } else {
