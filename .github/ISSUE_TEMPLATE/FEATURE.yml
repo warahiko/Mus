@@ -1,0 +1,26 @@
+name: 機能追加
+description: 機能追加
+title: "[Feature]: "
+labels: [ "enhancement" ]
+assignees:
+  - warahiko
+body:
+  - type: textarea
+    id: overview
+    attributes:
+      label: 概要
+      description: どんな機能を追加したいか
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 目的
+  - type: textarea
+    id: implementation
+    attributes:
+      label: 実装方法
+  - type: textarea
+    id: reference
+    attributes:
+      label: 参考
