@@ -60,6 +60,8 @@ dependencies {
     androidTestImplementation(libs.androidx.testExt.junit)
     androidTestImplementation(libs.androidx.test.espressoCore)
     androidTestImplementation(libs.androidx.compose.uiTestJUnit4)
+
+    debugImplementation(libs.androidx.compose.uiTooling)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
