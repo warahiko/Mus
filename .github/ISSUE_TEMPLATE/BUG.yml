@@ -1,0 +1,30 @@
+name: バグ報告
+description: バグ報告
+title: "[Bug]: "
+labels: [ "bug" ]
+assignees:
+  - warahiko
+body:
+  - type: textarea
+    id: overview
+    attributes:
+      label: 概要
+      description: 何が起きたか、何が期待されるか
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 再現手順
+  - type: textarea
+    id: cause
+    attributes:
+      label: 原因
+  - type: textarea
+    id: amendment
+    attributes:
+      label: 修正案
+  - type: textarea
+    id: reference
+    attributes:
+      label: 参考
