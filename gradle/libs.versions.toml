@@ -40,6 +40,7 @@ androidx-constraintLayout = { module = "androidx.constraintlayout:constraintlayo
 androidx-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "androidx-compose" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose" }
 androidx-compose-uiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose" }
+androidx-compose-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
 androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "androidx-compose" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
@@ -54,7 +55,7 @@ androidx-compose-uiTestJUnit4 = { module = "androidx.compose.ui:ui-test-junit4",
 androidx-compose = [
     "androidx-compose-compiler",
     "androidx-compose-ui",
-    "androidx-compose-uiTooling",
+    "androidx-compose-uiToolingPreview",
     "androidx-compose-foundation",
     "androidx-compose-material",
     "androidx-activity-compose",
