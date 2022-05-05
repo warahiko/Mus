@@ -5,6 +5,7 @@ import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
+import com.google.devtools.ksp.symbol.ClassKind
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.Modifier
@@ -59,10 +60,12 @@ class ListSealedProcessor(
                     get() = listOf(
                     """.trimIndent()
                 )
-                classDeclaration.getSealedSubclasses().forEach { subclass ->
-                    val qualifiedSubclassName = subclass.qualifiedName?.asString() ?: return@forEach
-                    appendLine("$indent$indent$qualifiedSubclassName,")
-                }
+                classDeclaration.getSealedSubclasses()
+                    .filter { it.classKind == ClassKind.OBJECT }
+                    .forEach { subclass ->
+                        val qualifiedSubclassName = subclass.qualifiedName?.asString() ?: return@forEach
+                        appendLine("$indent$indent$qualifiedSubclassName,")
+                    }
                 appendLine("$indent)")
             }
 
