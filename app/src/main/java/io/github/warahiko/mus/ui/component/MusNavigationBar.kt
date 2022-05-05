@@ -37,7 +37,7 @@ fun MusNavigationBar(
                         text = stringResource(screen.labelRes),
                     )
                 },
-                selected = currentDestinationRoutes?.any { screen.route == it } == true,
+                selected = currentDestinationRoutes?.any { screen.subgraphRoute == it } == true,
                 onClick = { onClickItem(screen) },
             )
         }
