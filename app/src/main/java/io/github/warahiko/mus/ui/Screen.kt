@@ -2,6 +2,7 @@ package io.github.warahiko.mus.ui
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import io.github.warahiko.listsealed.ListSealed
 import io.github.warahiko.mus.R
 
 sealed interface Screen {
@@ -32,6 +33,7 @@ sealed interface Screen {
     }
 }
 
+@ListSealed
 sealed interface BottomNavigationScreen : Screen.SubgraphRoot {
     override val parent: Screen?
         get() = Screen.Root
@@ -54,10 +56,5 @@ sealed interface BottomNavigationScreen : Screen.SubgraphRoot {
         override val iconRes: Int = R.drawable.ic_settings
     }
 
-    companion object {
-        val items: List<BottomNavigationScreen> = listOf(
-            Tuner,
-            Setting,
-        )
-    }
+    companion object
 }
