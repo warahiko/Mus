@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import io.github.warahiko.mus.ui.BottomNavigationScreen
+import io.github.warahiko.mus.ui.objects
 import io.github.warahiko.mus.ui.theme.MusAppTheme
 
 @Composable
@@ -24,7 +25,7 @@ fun MusNavigationBar(
     NavigationBar(
         modifier = modifier,
     ) {
-        BottomNavigationScreen.items.forEach { screen ->
+        BottomNavigationScreen.objects.forEach { screen ->
             NavigationBarItem(
                 icon = {
                     Icon(
@@ -46,7 +47,7 @@ fun MusNavigationBar(
 
 internal class MusNavigationBarCurrentDestinationRoutesProvider : PreviewParameterProvider<List<String?>> {
     override val values: Sequence<List<String?>>
-        get() = BottomNavigationScreen.items
+        get() = BottomNavigationScreen.objects
             .map { listOf(it.route) }
             .asSequence()
 }

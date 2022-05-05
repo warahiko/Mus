@@ -3,7 +3,15 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.kotlin) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+}
+
+// see: https://kotlinlang.org/docs/ksp-quickstart.html#create-a-processor-of-your-own
+buildscript {
+    dependencies {
+        classpath(libs.kotlin.gradle)
+    }
 }
 
 tasks.register("clean", Delete::class) {
