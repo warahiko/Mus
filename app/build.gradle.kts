@@ -1,7 +1,8 @@
 @Suppress("DSL_SCOPE_VIOLATION") // see: https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
     id(libs.plugins.android.application.get().pluginId)
-    id(libs.plugins.kotlin.get().pluginId)
+    id(libs.plugins.kotlin.android.get().pluginId)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -28,6 +29,15 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
+    applicationVariants.all {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("$buildDir/generated/ksp/$name/kotlin")
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -62,6 +72,9 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.uiTestJUnit4)
 
     debugImplementation(libs.androidx.compose.uiTooling)
+
+    implementation(project(":listsealed"))
+    ksp(project(":listsealed"))
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
