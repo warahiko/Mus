@@ -1,5 +1,6 @@
 package io.github.warahiko.mus.ui.component
 
+import android.content.res.Configuration
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -51,6 +52,7 @@ internal class MusNavigationBarCurrentDestinationRoutesProvider : PreviewParamet
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun MusNavigationBarPreview(
     @PreviewParameter(MusNavigationBarCurrentDestinationRoutesProvider::class)

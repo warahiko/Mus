@@ -1,5 +1,6 @@
 package io.github.warahiko.mus.ui.component
 
+import android.content.res.Configuration
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +25,7 @@ fun MusMainTopBar(
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun MusMainTopBarPreview() {
     MusAppTheme {

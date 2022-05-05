@@ -1,5 +1,6 @@
 package io.github.warahiko.mus.ui.tuner.oscillator
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -40,6 +41,7 @@ fun OscillatorScreen(
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun OscillatorScreenPreview() {
     MusAppTheme {
