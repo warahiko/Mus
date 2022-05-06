@@ -52,7 +52,6 @@ fun PitchSection(
             Slider(
                 value = octave,
                 onValueChange = {
-                    println(it)
                     onChangeOctave(it)
                 },
                 valueRange = 1f..6f,
@@ -68,7 +67,6 @@ fun PitchSection(
             Slider(
                 value = a4Frequency,
                 onValueChange = {
-                    println(it)
                     onChangeA4Frequency(it)
                 },
                 valueRange = 435f..450f,
