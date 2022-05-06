@@ -24,22 +24,26 @@ class ListSealedProcessor(
         val (processable, next) = symbols.partition { it.validate() }
 
         processable.forEach { symbol ->
-            if (symbol.isSealed()) {
-                generateList(symbol)
-            } else {
-                val className = (symbol.qualifiedName ?: symbol.simpleName).asString()
-                logger.warn(
+            val className = (symbol.qualifiedName ?: symbol.simpleName).asString()
+            if (Modifier.SEALED !in symbol.modifiers) {
+                logger.error(
                     "Class $className is not a sealed class/interface.",
                     symbol = symbol,
                 )
+                return@forEach
             }
+            if (symbol.declarations.all { (it as? KSClassDeclaration)?.isCompanionObject != true }) {
+                logger.error(
+                    "Class $className does not have a companion object.",
+                    symbol = symbol,
+                )
+                return@forEach
+            }
+
+            generateList(symbol)
         }
 
         return next
-    }
-
-    private fun KSClassDeclaration.isSealed(): Boolean {
-        return Modifier.SEALED in modifiers
     }
 
     private fun generateList(classDeclaration: KSClassDeclaration) {
@@ -57,10 +61,17 @@ class ListSealedProcessor(
                 package $packageName
 
                 val $qualifiedClassName.Companion.objects: List<$qualifiedClassName>
-                    get() = listOf(
                     """.trimIndent()
                 )
-                classDeclaration.getSealedSubclasses()
+
+                val sealedSubclasses = classDeclaration.getSealedSubclasses()
+                if (sealedSubclasses.none()) {
+                    appendLine("${indent}get() = emptyList()")
+                    return@buildString
+                }
+
+                appendLine("${indent}get() = listOf(")
+                sealedSubclasses
                     .filter { it.classKind == ClassKind.OBJECT }
                     .forEach { subclass ->
                         val qualifiedSubclassName = subclass.qualifiedName?.asString() ?: return@forEach
