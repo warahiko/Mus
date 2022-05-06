@@ -24,22 +24,19 @@ class ListSealedProcessor(
         val (processable, next) = symbols.partition { it.validate() }
 
         processable.forEach { symbol ->
-            if (symbol.isSealed()) {
-                generateList(symbol)
-            } else {
-                val className = (symbol.qualifiedName ?: symbol.simpleName).asString()
-                logger.warn(
+            val className = (symbol.qualifiedName ?: symbol.simpleName).asString()
+            if (Modifier.SEALED !in symbol.modifiers) {
+                logger.error(
                     "Class $className is not a sealed class/interface.",
                     symbol = symbol,
                 )
+                return@forEach
             }
+
+            generateList(symbol)
         }
 
         return next
-    }
-
-    private fun KSClassDeclaration.isSealed(): Boolean {
-        return Modifier.SEALED in modifiers
     }
 
     private fun generateList(classDeclaration: KSClassDeclaration) {
