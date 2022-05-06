@@ -7,10 +7,13 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
 }
 
-// see: https://kotlinlang.org/docs/ksp-quickstart.html#create-a-processor-of-your-own
 buildscript {
     dependencies {
+        // see: https://kotlinlang.org/docs/ksp-quickstart.html#create-a-processor-of-your-own
         classpath(libs.kotlin.gradle)
+
+        // Dagger Hilt (https://dagger.dev/hilt/gradle-setup)
+        classpath(libs.hilt.androidGradle)
     }
 }
 
