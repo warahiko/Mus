@@ -12,27 +12,26 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.warahiko.mus.R
 import io.github.warahiko.mus.ui.component.MusTopBar
 import io.github.warahiko.mus.ui.theme.MusAppTheme
-import io.github.warahiko.mus.ui.tuner.oscillator.notename.NoteName
 import io.github.warahiko.mus.ui.tuner.oscillator.section.NoteNameSection
 import io.github.warahiko.mus.ui.tuner.oscillator.section.PitchSection
 
 @Composable
 fun OscillatorScreen(
     modifier: Modifier = Modifier,
+    viewModel: OscillatorViewModel = hiltViewModel(),
 ) {
-    val (selectedNoteName, setNoteName) = remember { mutableStateOf(NoteName.C) }
-    val (octave, setOctave) = remember { mutableStateOf(4f) }
-    val (a4Frequency, setA4Frequency) = remember { mutableStateOf(442f) }
+    val uiState by viewModel.uiState.collectAsState()
 
     val scrollState = rememberScrollState()
     Scaffold(
@@ -60,15 +59,15 @@ fun OscillatorScreen(
                 .verticalScroll(scrollState),
         ) {
             NoteNameSection(
-                selectedNoteName = selectedNoteName,
-                onClickButton = setNoteName
+                selectedNoteName = uiState.selectedNoteName,
+                onClickButton = viewModel::onChangeNoteName
             )
             Spacer(modifier = Modifier.height(16.dp))
             PitchSection(
-                octave = octave,
-                a4Frequency = a4Frequency,
-                onChangeOctave = setOctave,
-                onChangeA4Frequency = setA4Frequency,
+                octave = uiState.octave,
+                a4Frequency = uiState.a4Frequency,
+                onChangeOctave = viewModel::onChangeOctave,
+                onChangeA4Frequency = viewModel::onChangeA4Frequency,
             )
         }
     }
