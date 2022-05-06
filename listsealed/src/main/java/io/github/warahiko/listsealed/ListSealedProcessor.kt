@@ -65,6 +65,7 @@ class ListSealedProcessor(
                 )
 
                 val sealedSubclasses = classDeclaration.getSealedSubclasses()
+                    .filter { it.classKind == ClassKind.OBJECT }
                 if (sealedSubclasses.none()) {
                     appendLine("${indent}get() = emptyList()")
                     return@buildString
@@ -72,7 +73,6 @@ class ListSealedProcessor(
 
                 appendLine("${indent}get() = listOf(")
                 sealedSubclasses
-                    .filter { it.classKind == ClassKind.OBJECT }
                     .forEach { subclass ->
                         val qualifiedSubclassName = subclass.qualifiedName?.asString() ?: return@forEach
                         appendLine("$indent$indent$qualifiedSubclassName,")
