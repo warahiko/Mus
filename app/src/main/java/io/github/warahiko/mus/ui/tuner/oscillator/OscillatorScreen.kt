@@ -1,6 +1,7 @@
 package io.github.warahiko.mus.ui.tuner.oscillator
 
 import android.content.res.Configuration
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.warahiko.mus.R
 import io.github.warahiko.mus.ui.component.MusTopBar
 import io.github.warahiko.mus.ui.theme.MusAppTheme
+import io.github.warahiko.mus.ui.tuner.oscillator.notename.NoteName
 import io.github.warahiko.mus.ui.tuner.oscillator.section.NoteNameSection
 import io.github.warahiko.mus.ui.tuner.oscillator.section.PitchSection
 
@@ -32,8 +34,24 @@ fun OscillatorScreen(
     viewModel: OscillatorViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    OscillatorScreenContent(
+        uiState = uiState,
+        modifier = modifier,
+        onChangeNoteName = viewModel::onChangeNoteName,
+        onChangeOctave = viewModel::onChangeOctave,
+        onChangeA4Frequency = viewModel::onChangeA4Frequency,
+    )
+}
 
-    val scrollState = rememberScrollState()
+@Composable
+private fun OscillatorScreenContent(
+    uiState: OscillatorUiState,
+    modifier: Modifier = Modifier,
+    scrollState: ScrollState = rememberScrollState(),
+    onChangeNoteName: (NoteName) -> Unit = {},
+    onChangeOctave: (Float) -> Unit = {},
+    onChangeA4Frequency: (Float) -> Unit = {},
+) {
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -60,14 +78,14 @@ fun OscillatorScreen(
         ) {
             NoteNameSection(
                 selectedNoteName = uiState.selectedNoteName,
-                onClickButton = viewModel::onChangeNoteName
+                onClickButton = onChangeNoteName,
             )
             Spacer(modifier = Modifier.height(16.dp))
             PitchSection(
                 octave = uiState.octave,
                 a4Frequency = uiState.a4Frequency,
-                onChangeOctave = viewModel::onChangeOctave,
-                onChangeA4Frequency = viewModel::onChangeA4Frequency,
+                onChangeOctave = onChangeOctave,
+                onChangeA4Frequency = onChangeA4Frequency,
             )
         }
     }
@@ -78,6 +96,12 @@ fun OscillatorScreen(
 @Composable
 private fun OscillatorScreenPreview() {
     MusAppTheme {
-        OscillatorScreen()
+        OscillatorScreenContent(
+            uiState = OscillatorUiState(
+                selectedNoteName = NoteName.C,
+                octave = 4f,
+                a4Frequency = 442f,
+            )
+        )
     }
 }
