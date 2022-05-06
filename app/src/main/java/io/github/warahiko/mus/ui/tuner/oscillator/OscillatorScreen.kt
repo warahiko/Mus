@@ -32,11 +32,13 @@ import io.github.warahiko.mus.ui.tuner.oscillator.section.PitchSection
 fun OscillatorScreen(
     modifier: Modifier = Modifier,
     viewModel: OscillatorViewModel = hiltViewModel(),
+    onBackPressed: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsState()
     OscillatorScreenContent(
         uiState = uiState,
         modifier = modifier,
+        onBackPressed = onBackPressed,
         onChangeNoteName = viewModel::onChangeNoteName,
         onChangeOctave = viewModel::onChangeOctave,
         onChangeA4Frequency = viewModel::onChangeA4Frequency,
@@ -48,6 +50,7 @@ private fun OscillatorScreenContent(
     uiState: OscillatorUiState,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
+    onBackPressed: () -> Unit = {},
     onChangeNoteName: (NoteName) -> Unit = {},
     onChangeOctave: (Float) -> Unit = {},
     onChangeA4Frequency: (Float) -> Unit = {},
@@ -57,6 +60,7 @@ private fun OscillatorScreenContent(
         topBar = {
             MusTopBar(
                 title = stringResource(id = R.string.oscillator_title),
+                onBackPressed = onBackPressed,
             )
         },
         floatingActionButton = {
