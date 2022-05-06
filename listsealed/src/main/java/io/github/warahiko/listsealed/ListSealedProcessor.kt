@@ -54,10 +54,17 @@ class ListSealedProcessor(
                 package $packageName
 
                 val $qualifiedClassName.Companion.objects: List<$qualifiedClassName>
-                    get() = listOf(
                     """.trimIndent()
                 )
-                classDeclaration.getSealedSubclasses()
+
+                val sealedSubclasses = classDeclaration.getSealedSubclasses()
+                if (sealedSubclasses.none()) {
+                    appendLine("${indent}get() = emptyList()")
+                    return@buildString
+                }
+
+                appendLine("${indent}get() = listOf(")
+                sealedSubclasses
                     .filter { it.classKind == ClassKind.OBJECT }
                     .forEach { subclass ->
                         val qualifiedSubclassName = subclass.qualifiedName?.asString() ?: return@forEach
