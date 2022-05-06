@@ -32,6 +32,13 @@ class ListSealedProcessor(
                 )
                 return@forEach
             }
+            if (symbol.declarations.all { (it as? KSClassDeclaration)?.isCompanionObject != true }) {
+                logger.error(
+                    "Class $className does not have a companion object.",
+                    symbol = symbol,
+                )
+                return@forEach
+            }
 
             generateList(symbol)
         }
