@@ -90,7 +90,9 @@ private fun OscillatorScreenContent(
             Spacer(modifier = Modifier.height(16.dp))
             PitchSection(
                 octave = uiState.octave,
+                octaveText = uiState.roundedOctave.toString(),
                 a4Frequency = uiState.a4Frequency,
+                a4FrequencyText = uiState.roundedA4Frequency.toString(),
                 onChangeOctave = onChangeOctave,
                 onChangeA4Frequency = onChangeA4Frequency,
             )

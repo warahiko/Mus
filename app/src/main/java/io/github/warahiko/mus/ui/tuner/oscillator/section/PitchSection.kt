@@ -16,12 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.warahiko.mus.ui.theme.MusAppTheme
-import kotlin.math.roundToInt
 
 @Composable
 fun PitchSection(
     octave: Float,
+    octaveText: String,
     a4Frequency: Float,
+    a4FrequencyText: String,
     modifier: Modifier = Modifier,
     onChangeOctave: (octave: Float) -> Unit = {},
     onChangeA4Frequency: (a4Frequency: Float) -> Unit = {},
@@ -47,7 +48,7 @@ fun PitchSection(
             ) {
                 Text(text = "オクターブ")
                 Spacer(modifier = Modifier.weight(1f))
-                Text(text = "${octave.roundToInt()}")
+                Text(text = octaveText)
             }
             Slider(
                 value = octave,
@@ -62,7 +63,7 @@ fun PitchSection(
             ) {
                 Text(text = "A4 の周波数")
                 Spacer(modifier = Modifier.weight(1f))
-                Text(text = "${a4Frequency.roundToInt()} Hz")
+                Text(text = "$a4FrequencyText Hz")
             }
             Slider(
                 value = a4Frequency,
@@ -83,7 +84,9 @@ private fun PitchSectionPreview() {
     MusAppTheme {
         PitchSection(
             octave = 4f,
+            octaveText = "4",
             a4Frequency = 442f,
+            a4FrequencyText = "442",
         )
     }
 }
