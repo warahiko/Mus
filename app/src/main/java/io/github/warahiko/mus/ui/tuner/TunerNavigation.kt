@@ -21,7 +21,11 @@ fun NavGraphBuilder.tunerGraph(navController: NavController) {
             )
         }
         composable(route = Screen.Oscillator.route) {
-            OscillatorScreen()
+            OscillatorScreen(
+                onBackPressed = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

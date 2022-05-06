@@ -3,6 +3,10 @@ plugins {
     id(libs.plugins.android.application.get().pluginId)
     id(libs.plugins.kotlin.android.get().pluginId)
     alias(libs.plugins.ksp)
+    id(libs.plugins.kapt.get().pluginId)
+
+    // Dagger Hilt (https://dagger.dev/hilt/gradle-setup)
+    id(libs.plugins.hilt.android.get().pluginId)
 }
 
 android {
@@ -66,6 +70,11 @@ dependencies {
     implementation(libs.android.material)
     implementation(libs.androidx.constraintLayout)
     implementation(libs.bundles.androidx.compose)
+
+    // Dagger Hilt (https://dagger.dev/hilt/gradle-setup)
+    implementation(libs.bundles.hilt)
+    kapt(libs.hilt.androidCompiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.testExt.junit)
     androidTestImplementation(libs.androidx.test.espressoCore)
@@ -75,6 +84,11 @@ dependencies {
 
     implementation(project(":listsealed"))
     ksp(project(":listsealed"))
+}
+
+kapt {
+    // see: https://dagger.dev/hilt/gradle-setup
+    correctErrorTypes = true
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

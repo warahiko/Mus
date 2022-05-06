@@ -48,7 +48,7 @@ fun MusNavigationBar(
 internal class MusNavigationBarCurrentDestinationRoutesProvider : PreviewParameterProvider<List<String?>> {
     override val values: Sequence<List<String?>>
         get() = BottomNavigationScreen.objects
-            .map { listOf(it.route) }
+            .map { listOf(it.subgraphRoute) }
             .asSequence()
 }
 
