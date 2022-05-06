@@ -8,4 +8,5 @@ data class OscillatorUiState(
     val selectedNoteName: NoteName,
     val octave: Float,
     val a4Frequency: Float,
+    val isPlaying: Boolean,
 )

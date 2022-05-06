@@ -16,6 +16,7 @@ class OscillatorViewModel @Inject constructor() : ViewModel() {
             selectedNoteName = NoteName.C,
             octave = 4f,
             a4Frequency = 442f,
+            isPlaying = false,
         )
     )
     val uiState: StateFlow<OscillatorUiState> = _uiState.asStateFlow()
@@ -35,6 +36,12 @@ class OscillatorViewModel @Inject constructor() : ViewModel() {
     fun onChangeA4Frequency(a4Frequency: Float) {
         _uiState.update {
             it.copy(a4Frequency = a4Frequency)
+        }
+    }
+
+    fun togglePlaying() {
+        _uiState.update {
+            it.copy(isPlaying = !it.isPlaying)
         }
     }
 }

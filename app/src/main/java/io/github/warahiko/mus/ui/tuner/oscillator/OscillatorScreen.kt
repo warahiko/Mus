@@ -39,6 +39,7 @@ fun OscillatorScreen(
         uiState = uiState,
         modifier = modifier,
         onBackPressed = onBackPressed,
+        onClickPlayerButton = viewModel::togglePlaying,
         onChangeNoteName = viewModel::onChangeNoteName,
         onChangeOctave = viewModel::onChangeOctave,
         onChangeA4Frequency = viewModel::onChangeA4Frequency,
@@ -51,6 +52,7 @@ private fun OscillatorScreenContent(
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
     onBackPressed: () -> Unit = {},
+    onClickPlayerButton: () -> Unit = {},
     onChangeNoteName: (NoteName) -> Unit = {},
     onChangeOctave: (Float) -> Unit = {},
     onChangeA4Frequency: (Float) -> Unit = {},
@@ -64,9 +66,10 @@ private fun OscillatorScreenContent(
             )
         },
         floatingActionButton = {
-            LargeFloatingActionButton(onClick = {}) {
+            LargeFloatingActionButton(onClick = onClickPlayerButton) {
+                val iconRes = if (uiState.isPlaying) R.drawable.ic_stop else R.drawable.ic_play
                 Icon(
-                    painter = painterResource(R.drawable.ic_play),
+                    painter = painterResource(iconRes),
                     contentDescription = null,
                 )
             }
@@ -105,6 +108,7 @@ private fun OscillatorScreenPreview() {
                 selectedNoteName = NoteName.C,
                 octave = 4f,
                 a4Frequency = 442f,
+                isPlaying = false,
             )
         )
     }
