@@ -23,6 +23,9 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags += "-std=c++17"
+
+                // see: https://github.com/google/oboe/blob/main/docs/GettingStarted.md
+                arguments += "-DANDROID_STL=c++_shared"
             }
         }
     }
@@ -58,6 +61,9 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
+
+        // see: https://github.com/google/oboe/blob/main/docs/GettingStarted.md
+        prefab = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidx.compose.get()
@@ -74,6 +80,9 @@ dependencies {
     // Dagger Hilt (https://dagger.dev/hilt/gradle-setup)
     implementation(libs.bundles.hilt)
     kapt(libs.hilt.androidCompiler)
+
+    // Oboe
+    implementation(libs.oboe)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.testExt.junit)
