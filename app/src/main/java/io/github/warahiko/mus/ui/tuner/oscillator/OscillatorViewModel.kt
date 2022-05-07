@@ -25,6 +25,7 @@ class OscillatorViewModel @Inject constructor(
 
     fun setupOscillator() {
         val state = _uiState.value
+        oscillator.setup()
         oscillator.setNoteNumber(state.noteNumber)
         oscillator.setA4Frequency(state.roundedA4Frequency)
     }
@@ -63,6 +64,11 @@ class OscillatorViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    override fun onCleared() {
+        oscillator.dispose()
+        super.onCleared()
     }
 
     private val OscillatorUiState.noteNumber: Int

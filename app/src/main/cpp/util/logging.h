@@ -9,5 +9,6 @@
 
 #define TAG "mus Native"
 #define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__))
+#define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__))
 
 #endif //MUS_LOGGING_H
