@@ -33,6 +33,8 @@ public:
 
     void stop();
 
+    void reset();
+
 private:
     int32_t noteNumber;
     int32_t a4Frequency;

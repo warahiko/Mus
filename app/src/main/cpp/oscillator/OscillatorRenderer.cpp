@@ -67,6 +67,12 @@ void OscillatorRenderer::stop() {
     isStopping = true;
 }
 
+void OscillatorRenderer::reset() {
+    phase = 0.0;
+    isStopping = false;
+    isStopped = false;
+}
+
 void OscillatorRenderer::applyHannWindow(float *audioData, int32_t numFrames) {
     float phaseIncrement = M_PI / numFrames;
     float phase = M_PI + phaseIncrement;

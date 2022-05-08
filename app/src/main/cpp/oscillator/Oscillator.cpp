@@ -26,7 +26,7 @@ void Oscillator::setA4Frequency(int32_t a4Frequency) {
 void Oscillator::play() {
     std::lock_guard<std::mutex> localLock(lock);
     if (!stream) {
-        setup();
+        openStream();
     }
     innerPlay();
 }
@@ -41,7 +41,7 @@ void Oscillator::innerStop() {
         stream->stop();
         stream->close();
         stream.reset();
-        renderer.reset();
+        renderer->reset();
     }
 }
 
