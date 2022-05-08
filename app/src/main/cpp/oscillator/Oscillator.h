@@ -5,6 +5,7 @@
 #ifndef MUS_OSCILLATOR_H
 #define MUS_OSCILLATOR_H
 
+#include <thread>
 #include <oboe/Oboe.h>
 #include "OscillatorRenderer.h"
 
@@ -25,6 +26,7 @@ public:
     void onErrorAfterClose(oboe::AudioStream *audioStream, oboe::Result error) override;
 
 private:
+    std::unique_ptr<std::thread> thread;
     std::mutex lock;
     std::unique_ptr<OscillatorRenderer> renderer;
     std::shared_ptr<oboe::AudioStream> stream;
@@ -32,6 +34,8 @@ private:
     bool openStream();
 
     void innerPlay();
+
+    void innerStop();
 
     inline static int constexpr CHANNEL_COUNT = oboe::ChannelCount::Mono;
 };

@@ -32,11 +32,16 @@ void Oscillator::play() {
 }
 
 void Oscillator::stop() {
+    renderer->stop();
+}
+
+void Oscillator::innerStop() {
     std::lock_guard<std::mutex> localLock(lock);
     if (stream) {
         stream->stop();
         stream->close();
         stream.reset();
+        renderer.reset();
     }
 }
 
@@ -45,7 +50,16 @@ oboe::DataCallbackResult Oscillator::onAudioReady(
         void *audioData,
         int32_t numFrames) {
     auto *outputBuffer = static_cast<float *>(audioData);
-    renderer->render(outputBuffer, numFrames);
+    auto result = renderer->render(outputBuffer, numFrames);
+    if (result == OscillatorRenderer::Result::STOPPED) {
+        if (thread && thread->joinable()) {
+            thread->join();
+            thread.reset();
+        }
+        thread = std::make_unique<std::thread>([this] {
+            innerStop();
+        });
+    }
     return oboe::DataCallbackResult::Continue;
 }
 

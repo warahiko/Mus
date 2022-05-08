@@ -35,14 +35,45 @@ void OscillatorRenderer::setA4Frequency(int32_t a4Frequency) {
     setPhaseIncrement();
 }
 
-void OscillatorRenderer::render(
+OscillatorRenderer::Result OscillatorRenderer::render(
         float *audioData,
         int32_t numFrames
 ) {
     for (int i = 0; i < numFrames; ++i) {
-        auto sampledValue = (float) (sin(phase) * amplitude);
+        float sampledValue;
+        if (isStopped) {
+            sampledValue = 0.0;
+        } else {
+            sampledValue = (float) (sin(phase) * amplitude);
+        }
         for (int j = 0; j < channelCount; ++j) {
             audioData[i * channelCount + j] = sampledValue;
+        }
+
+        phase += phaseIncrement;
+        if (phase > M_PI * 2) phase -= M_PI * 2;
+    }
+    if (isStopping) {
+        applyHannWindow(audioData, numFrames);
+        isStopping = false;
+        isStopped = true;
+        return OscillatorRenderer::Result::STOPPED;
+    } else {
+        return OscillatorRenderer::Result::CONTINUED;
+    }
+}
+
+void OscillatorRenderer::stop() {
+    isStopping = true;
+}
+
+void OscillatorRenderer::applyHannWindow(float *audioData, int32_t numFrames) {
+    float phaseIncrement = M_PI / numFrames;
+    float phase = M_PI + phaseIncrement;
+    for (int frame = 0; frame < numFrames; ++frame) {
+        auto value = (float) (0.5 * (1 - cos(phase)));
+        for (int j = 0; j < channelCount; ++j) {
+            audioData[frame * channelCount + j] = audioData[frame * channelCount + j] * value;
         }
 
         phase += phaseIncrement;

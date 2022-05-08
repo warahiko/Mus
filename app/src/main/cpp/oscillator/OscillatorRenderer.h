@@ -9,6 +9,11 @@
 
 class OscillatorRenderer {
 public:
+    enum Result {
+        CONTINUED,
+        STOPPED,
+    };
+
     OscillatorRenderer(
             int32_t channelCount,
             int32_t sampleRate = DEFAULT_SAMPLE_RATE,
@@ -21,10 +26,12 @@ public:
 
     void setA4Frequency(int32_t a4Frequency);
 
-    void render(
+    OscillatorRenderer::Result render(
             float *audioData,
             int32_t numFrames
     );
+
+    void stop();
 
 private:
     int32_t noteNumber;
@@ -36,7 +43,12 @@ private:
     double phase = 0.0;
     double phaseIncrement = 0.0;
 
+    bool isStopping = false;
+    bool isStopped = false;
+
     void setPhaseIncrement();
+
+    void applyHannWindow(float *window, int32_t numFrames);
 
     static int32_t constexpr DEFAULT_A4_FREQUENCY = 440;
     static int32_t constexpr DEFAULT_SAMPLE_RATE = 48000;
