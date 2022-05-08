@@ -21,6 +21,8 @@ public:
 
     void stop();
 
+    void dispose();
+
     oboe::DataCallbackResult onAudioReady(oboe::AudioStream *audioStream, void *audioData, int32_t numFrames) override;
 
     void onErrorAfterClose(oboe::AudioStream *audioStream, oboe::Result error) override;

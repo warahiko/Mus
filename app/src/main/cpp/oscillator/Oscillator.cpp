@@ -39,10 +39,18 @@ void Oscillator::innerStop() {
     std::lock_guard<std::mutex> localLock(lock);
     if (stream) {
         stream->stop();
-        stream->close();
-        stream.reset();
         renderer->reset();
     }
+}
+
+void Oscillator::dispose() {
+    std::lock_guard<std::mutex> localLock(lock);
+    if (stream) {
+        stream->stop();
+        stream->close();
+    }
+    stream.reset();
+    renderer.reset();
 }
 
 oboe::DataCallbackResult Oscillator::onAudioReady(

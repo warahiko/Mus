@@ -20,7 +20,7 @@ JNIEXPORT void JNICALL
 Java_io_github_warahiko_mus_ui_tuner_oscillator_Oscillator_dispose(
         JNIEnv *env,
         jobject thiz) {
-    oscillator->stop();
+    oscillator->dispose();
     oscillator.reset();
 }
 
