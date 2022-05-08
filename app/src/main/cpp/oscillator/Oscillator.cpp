@@ -45,10 +45,14 @@ void Oscillator::innerStop() {
 
 void Oscillator::dispose() {
     std::lock_guard<std::mutex> localLock(lock);
+    if (thread && thread->joinable()) {
+        thread->join();
+    }
     if (stream) {
         stream->stop();
         stream->close();
     }
+    thread.reset();
     stream.reset();
     renderer.reset();
 }
