@@ -13,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -44,6 +45,10 @@ fun OscillatorScreen(
         onChangeOctave = viewModel::onChangeOctave,
         onChangeA4Frequency = viewModel::onChangeA4Frequency,
     )
+
+    LaunchedEffect(Unit) {
+        viewModel.setupOscillator()
+    }
 }
 
 @Composable
@@ -90,7 +95,9 @@ private fun OscillatorScreenContent(
             Spacer(modifier = Modifier.height(16.dp))
             PitchSection(
                 octave = uiState.octave,
+                octaveText = uiState.roundedOctave.toString(),
                 a4Frequency = uiState.a4Frequency,
+                a4FrequencyText = uiState.roundedA4Frequency.toString(),
                 onChangeOctave = onChangeOctave,
                 onChangeA4Frequency = onChangeA4Frequency,
             )
