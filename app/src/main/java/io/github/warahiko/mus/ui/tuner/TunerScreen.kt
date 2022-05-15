@@ -1,6 +1,5 @@
 package io.github.warahiko.mus.ui.tuner
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,9 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import io.github.warahiko.mus.ui.component.MusMainTopBar
 import io.github.warahiko.mus.ui.theme.MusAppTheme
+import io.github.warahiko.mus.ui.util.PreviewThemes
 
 @Composable
 fun TunerScreen(
@@ -43,8 +42,7 @@ fun TunerScreen(
     }
 }
 
-@Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@PreviewThemes
 @Composable
 private fun TunerScreenPreview() {
     MusAppTheme {
