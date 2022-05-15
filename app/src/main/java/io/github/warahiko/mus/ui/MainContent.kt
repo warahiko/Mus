@@ -12,7 +12,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import io.github.warahiko.mus.ui.component.MusNavigationBar
 import io.github.warahiko.mus.ui.setting.settingGraph
+import io.github.warahiko.mus.ui.theme.MusAppTheme
 import io.github.warahiko.mus.ui.tuner.tunerGraph
+import io.github.warahiko.mus.ui.util.PreviewThemes
 
 @Composable
 fun MainContent(
@@ -47,5 +49,13 @@ fun MainContent(
             tunerGraph(navController)
             settingGraph()
         }
+    }
+}
+
+@PreviewThemes
+@Composable
+fun MainContentPreview() {
+    MusAppTheme {
+        MainContent(startDestination = BottomNavigationScreen.Setting)
     }
 }

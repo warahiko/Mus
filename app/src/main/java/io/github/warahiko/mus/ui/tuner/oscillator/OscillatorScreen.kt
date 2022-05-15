@@ -1,6 +1,5 @@
 package io.github.warahiko.mus.ui.tuner.oscillator
 
-import android.content.res.Configuration
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.warahiko.mus.R
@@ -28,6 +26,7 @@ import io.github.warahiko.mus.ui.theme.MusAppTheme
 import io.github.warahiko.mus.ui.tuner.oscillator.notename.NoteName
 import io.github.warahiko.mus.ui.tuner.oscillator.section.NoteNameSection
 import io.github.warahiko.mus.ui.tuner.oscillator.section.PitchSection
+import io.github.warahiko.mus.ui.util.PreviewThemes
 
 @Composable
 fun OscillatorScreen(
@@ -105,8 +104,7 @@ private fun OscillatorScreenContent(
     }
 }
 
-@Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@PreviewThemes
 @Composable
 private fun OscillatorScreenPreview() {
     MusAppTheme {

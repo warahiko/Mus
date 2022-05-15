@@ -1,6 +1,5 @@
 package io.github.warahiko.mus.ui.tuner.oscillator.section
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,10 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.warahiko.mus.ui.theme.MusAppTheme
 import io.github.warahiko.mus.ui.tuner.oscillator.notename.NoteName
+import io.github.warahiko.mus.ui.util.PreviewThemes
+import io.github.warahiko.mus.ui.util.PreviewWidths
 
 @Composable
 fun NoteNameSection(
@@ -65,10 +65,8 @@ fun NoteNameSection(
     }
 }
 
-@Preview(widthDp = 300)
-@Preview(widthDp = 300, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview(widthDp = 500)
-@Preview(widthDp = 500, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@PreviewThemes
+@PreviewWidths
 @Composable
 private fun NoteNameSectionPreview() {
     MusAppTheme {
