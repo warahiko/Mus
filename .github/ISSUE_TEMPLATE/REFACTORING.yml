@@ -1,0 +1,26 @@
+name: リファクタリング
+description: リファクタリング
+title: "[Refactoring]: "
+labels: [ "refactoring" ]
+assignees:
+  - warahiko
+body:
+  - type: textarea
+    id: overview
+    attributes:
+      label: 概要
+      description: どんなリファクタリングを行うか
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 目的
+  - type: textarea
+    id: implementation
+    attributes:
+      label: 実装方法
+  - type: textarea
+    id: reference
+    attributes:
+      label: 参考
