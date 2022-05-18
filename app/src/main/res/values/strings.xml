@@ -4,5 +4,8 @@
     <string name="tuner_label">チューナー</string>
     <string name="setting_label">設定</string>
 
+    <string name="tuner_a4_frequency">A4 = %d Hz</string>
+    <string name="tuner_cent">%s¢</string>
+
     <string name="oscillator_title">再生</string>
 </resources>
