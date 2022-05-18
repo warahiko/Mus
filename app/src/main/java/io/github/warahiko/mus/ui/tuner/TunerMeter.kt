@@ -25,7 +25,7 @@ import kotlin.math.sin
 
 @Composable
 fun TunerMeter(
-    value: Float,
+    valueProvider: () -> Float,
     modifier: Modifier = Modifier,
     backgroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     tickColor: Color = MaterialTheme.colorScheme.onBackground,
@@ -118,7 +118,7 @@ fun TunerMeter(
                 radius = centerCircleRadius,
             )
 
-            val radian = -(PI * (60f - value) / 120f).toFloat()
+            val radian = -(PI * (60f - valueProvider()) / 120f).toFloat()
             drawLine(
                 color = indicatorColor,
                 start = center,
@@ -133,6 +133,6 @@ fun TunerMeter(
 @Composable
 fun TunerMeterPreview() {
     MusAppTheme {
-        TunerMeter(value = 21f)
+        TunerMeter(valueProvider = { 21f })
     }
 }

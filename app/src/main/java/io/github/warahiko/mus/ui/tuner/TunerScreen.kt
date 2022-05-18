@@ -67,7 +67,7 @@ fun TunerScreen(
                 )
             }
             TunerMeter(
-                value = 21f,
+                valueProvider = { 21f },
                 modifier = Modifier.fillMaxWidth(),
             )
             Row(
